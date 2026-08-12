@@ -1,26 +1,47 @@
-## API Best Practices and Naming Conventions
+# REST API Best Practices & Naming Conventions
 
-> API best practices and naming conventions are essential for creating effective and maintainable APIs. These practices and conventions include guidelines for resource naming, versioning, URI structure, error handling, and security, among others. Adhering to these best practices can improve the usability, scalability, and consistency of APIs, and make them easier to use for both developers and end-users.
+> A practical, developer-focused guide to designing robust, secure, and maintainable REST APIs — covering resource naming, URI structure, HTTP methods, error handling, rate limiting, versioning, and more.
 
-> In this context, it is important to consider the needs of the target audience and the overall goals of the API when designing and implementing the best practices and naming conventions.
+> Consistent API design improves the usability, scalability, and maintainability of your services, making them easier to adopt and integrate with. Always tailor these conventions to your target audience and the overarching goals of your API.
 
-## Give a Star! :star:
+## Table of Contents
 
-> If you find this documentation helpful for learning , please give it a star. Your support is appreciated!
+- [1. What is REST API?](#1-what-is-rest-api)
+- [2. Breakdown of the Parts of a URL](#2-breakdown-of-the-parts-of-a-url)
+- [3. Use HTTP Methods to Communicate Intent](#3-use-http-methods-to-communicate-intent)
+- [4. Use an Appropriate Data Structure](#4-use-an-appropriate-data-structure)
+- [5. Choose a Consistent JSON Field Naming Convention](#5-choose-a-consistent-json-field-naming-convention)
+- [6. Use Consistent Error Messages](#6-use-consistent-error-messages)
+- [7. Use Status Codes in Error Handling](#7-use-status-codes-in-error-handling)
+- [8. Apply Rate Limiting to API Calls](#8-apply-rate-limiting-to-api-calls)
+- [9. Avoid Verbs in URIs](#9-avoid-verbs-in-uris)
+- [10. Use Plural Nouns](#10-use-plural-nouns)
+- [11. Use Lowercase Letters](#11-use-lowercase-letters)
+- [12. Use Hyphens to Separate Words in URI Paths](#12-use-hyphens-to-separate-words-in-uri-paths)
+- [13. Use Underscores in Query String Parameters](#13-use-underscores-in-query-string-parameters)
+- [14. Use Nesting to Show Resource Relationships](#14-use-nesting-to-show-resource-relationships)
+- [15. Limit Nesting with Top-Level Resources](#15-limit-nesting-with-top-level-resources)
+- [16. Use Forward Slashes for Hierarchy, No Trailing Slash](#16-use-forward-slashes-for-hierarchy-no-trailing-slash)
+- [17. Use Query Parameters for Filtering, Sorting, Pagination, and Field Selection](#17-use-query-parameters-for-filtering-sorting-pagination-and-field-selection)
+- [18. Version Your APIs](#18-version-your-apis)
 
-> Find me if you wish [saif](https://www.linkedin.com/in/saif-aust-cse/).
+## Support the Project :star:
+
+> If you find this guide helpful, please consider giving it a **star** on GitHub. Your support is greatly appreciated!
+
+> Connect with the author on [LinkedIn](https://www.linkedin.com/in/saif-aust-cse/).
 
 ## 1. What is REST API?
 
-REST API, which stands for Representational State Transfer Application Programming Interface, is a set of architectural constraints and principles used for designing and developing web services. It is a type of web API that allows different systems and applications to communicate and interact with each other over the internet.
+REST (Representational State Transfer) is an architectural style for designing web APIs that allows different systems and applications to communicate with each other over the internet.
 
-The core concept behind REST API is that it treats the resources of a web application as if they were objects in a data model, and it allows clients (such as web browsers or mobile applications) to perform operations on these resources using standard HTTP methods like GET, POST, PUT, PATCH, and DELETE. Each resource in a REST API is uniquely identified by a URL, and clients can interact with these resources by sending HTTP requests to the appropriate URLs.
+REST treats the resources of a web application as objects in a data model. Clients perform operations on these resources using standard HTTP methods such as GET, POST, PUT, PATCH, and DELETE. Each resource is uniquely identified by a URL.
 
-<div  style="text-align: center;">
+<div style="text-align: center;">
         <img src="https://github.com/saifaustcse/rest-api-best-practices/blob/main/images/rest-api-model.png?raw=true" width="700" height="300">
-<div>
+</div>
 
-**Key Characteristics and Principles of REST API::**
+**Key Characteristics and Principles of REST:**
 
 1. **Statelessness:** Each request from a client to the server must contain all the information needed to understand and process the request. The server does not store any state or session information about the client between requests, making it scalable and easy to manage.
 
@@ -36,38 +57,33 @@ The core concept behind REST API is that it treats the resources of a web applic
 
 7. **Hypermedia as the Engine of Application State (HATEOAS):** REST APIs can include hyperlinks in responses, allowing clients to discover and navigate available resources and actions dynamically.
 
-## 2. Breakdown of the parts a URL
+## 2. Breakdown of the Parts of a URL
 
-A URL (Uniform Resource Locator) is a reference or address used to locate resources on the internet. It typically consists of several parts, each serving a specific purpose. Here is a breakdown of the parts of a URL:
+A URL (Uniform Resource Locator) is a reference or address used to locate resources on the internet. It typically consists of several parts, each serving a specific purpose:
 
 ```
    protocol://hostname:port/path?query_string#fragment
 ```
 
-1. **Protocol:** The protocol specifies the method or rules used to access the resource. Commonly used protocols are "http" (Hypertext Transfer Protocol) and "https" (Secure Hypertext Transfer Protocol) for web resources.
+1. **Protocol:** The protocol defines the rules used to access the resource. The most common are "http" (Hypertext Transfer Protocol) and "https" (its secure version).
 
-2. **Hostname:** The hostname, also known as the domain name, represents the address of the server hosting the resource. For example, in "www.example.com," "www" is a subdomain, and "example.com" is the main domain.
+2. **Hostname:** The hostname (domain name) is the address of the server hosting the resource. In "www.example.com," "www" is the subdomain and "example.com" the main domain.
 
-3. **Port:** The port number specifies the communication endpoint on the server for the resource. It is optional and not always included in the URL. The default port for "http" is 80, and for "https" is 443.
+3. **Port:** The port specifies the communication endpoint on the server. It is optional; the default is 80 for "http" and 443 for "https".
 
-4. **Path:** The path refers to the specific location or file on the server that the client wants to access. It represents the hierarchy of directories and subdirectories leading to the resource. For example, in "https://www.example.com/products/shoes," "/products/shoes" is the path.
+4. **Path:** The path points to a specific location on the server, representing the directory hierarchy leading to the resource. In "https://www.example.com/products/shoes," "/products/shoes" is the path.
 
-5. **Query String:** The query string allows passing additional parameters or data to the server as part of the URL. It starts with a question mark "?" and contains key-value pairs separated by ampersands "&." For example, in "https://www.example.com/search?query=shoes&size=10," "query=shoes" and "size=10" are query parameters.
+5. **Query String:** The query string passes additional parameters to the server. It starts with "?" and contains key-value pairs separated by "&." In "https://www.example.com/search?query=shoes&size=10," "query" and "size" are the query parameters.
 
-6. **Fragment:** The fragment identifies a specific section within the resource, such as an anchor or target location in an HTML document. It is indicated by a hash "#" followed by the fragment identifier. The fragment is not sent to the server but is used by the client to navigate within the retrieved resource.
+6. **Fragment:** The fragment identifies a section within a resource, such as an anchor in an HTML document. Indicated by "#", it is never sent to the server; the client uses it to navigate the retrieved resource.
 
-A complete URL may or may not include all of these parts, depending on the specific resource being accessed and the use case.
+Note: A URL may omit some of these parts depending on the resource and use case.
 
-**Rest API Example URL for Testing:**
-
-- [Rest Api Example](https://dummy.restapiexample.com/)
-- [Rest Api Example](https://reqres.in/)
-
-## 3. Use HTTP methods to communicate intent
+## 3. Use HTTP Methods to Communicate Intent
 
 One of the key principles of REST APIs is the use of standard HTTP methods to communicate the intent of the request.
 
-The following table helps you in understanding the REST API Verbs:
+The following table summarizes the HTTP methods used in REST APIs:
 
 | REST Verb | Action                                               |
 | --------- | ---------------------------------------------------- |
@@ -78,15 +94,15 @@ The following table helps you in understanding the REST API Verbs:
 | PATCH     | Modifies the given record                            |
 | DELETE    | Deletes the given resource                           |
 
-Reources :
+Resources:
 
-- [PATCH vs PUT in REST API ](https://josipmisko.com/posts/patch-vs-put-rest-api) Differences between PATCH and PUT
+- [PATCH vs PUT in REST API](https://josipmisko.com/posts/patch-vs-put-rest-api) — Differences between PATCH and PUT
 
-## 4. Use Appropriate Data Structure
+## 4. Use an Appropriate Data Structure
 
-It's a common misconception that REST API must use JSON structure. But REST is all about a resource. That resource can be a JPEG image, HTML document, or any data structure.
+A common misconception is that a REST API must use JSON. In reality, REST is resource-oriented: a resource can be a JPEG image, an HTML document, or any other data structure.
 
-Find out what works for you. A lot of company API guidelines force the use of JSON. When using JSON, follow these best practices:
+Choose what works best for your use case. Many organizations standardize on JSON in their API guidelines. When using JSON, follow these best practices:
 
 - Use valid JSON Schema for both request and response bodies to ensure consistency and data validation.
 - Set the "Content-Type" header to "application/json" in all API requests and responses involving JSON data.
@@ -118,9 +134,9 @@ Find out what works for you. A lot of company API guidelines force the use of JS
 }
 ```
 
-By using JSON for both the request payload and the response, the API ensures a standardized data format and efficient data exchange between the client and the server.
+Using JSON for both requests and responses ensures a standardized data format and efficient data exchange.
 
-## 5. Pick your JSON Field Naming Convention (and Stick to It)
+## 5. Choose a Consistent JSON Field Naming Convention
 
 When working with JSON data, it's important to establish a consistent field naming convention for better readability and maintainability. While JSON doesn't enforce any specific naming convention, following a standard practice can greatly improve code consistency. Here are some common conventions along with their descriptions and examples:
 
@@ -143,23 +159,23 @@ When working with JSON data, it's important to establish a consistent field nami
    - Lowercase letters with hyphens separating words.
    - Example: "user-name"
 
-Out of these conventions, **camelCase** and **snake_case** are the most widely used and recommended. For consistency, it's best to choose one of these conventions and use it throughout your JSON data structures.
+**camelCase** and **snake_case** are the most widely used and recommended. Pick one and apply it consistently across all your JSON structures.
 
 ## 6. Use Consistent Error Messages
 
-In API development, relying solely on HTTP status codes to convey error information may not be sufficient for effective error handling. To provide better support for API consumers, it is recommended to include structured JSON error messages in the API responses.
+HTTP status codes alone are often not enough to convey error details. Include structured JSON error messages in responses to better support API consumers.
 
 A well-formed error message should consist of the following components:
 
-- **Error Code:** A machine-readable error code that uniquely identifies the specific error condition. This allows developers to programmatically handle different types of errors.
+- **Error Code:** A machine-readable code that uniquely identifies the error condition, allowing developers to handle errors programmatically.
 
-- **Error Message:** A human-readable message that provides a clear and detailed explanation of the encountered error. This helps API consumers understand the issue at hand.
+- **Error Message:** A human-readable message that clearly explains the error to API consumers.
 
-- **Error Context:** Additional information related to the error, such as the request ID, the specific request parameters that triggered the error, or the field(s) in the request causing the issue. Providing contextual data aids in debugging and troubleshooting.
+- **Error Context:** Additional details — such as the request ID, request parameters, or the field(s) that caused the issue — to aid debugging and troubleshooting.
 
-- **Error Links:** URLs to resources or documentation that offer further insights into the error and potential resolutions. These links guide API consumers in resolving the problem efficiently.
+- **Error Links:** URLs to documentation or support resources that help consumers resolve the issue.
 
-- **Timestamp:** The time when the error occurred, enabling developers to identify the exact timing of the issue.
+- **Timestamp:** The exact time the error occurred, for tracing and logging.
 
 **Example:**
 
@@ -182,23 +198,23 @@ A well-formed error message should consist of the following components:
 }
 ```
 
-In this example, the structured JSON error message provides clear information about the encountered error, including an error code, a detailed error message, relevant context data, links for further assistance, and the timestamp of the occurrence. By consistently using such error messages, API developers can greatly improve the error handling experience for consumers.
+Consistently using structured error messages like this significantly improves the error-handling experience for API consumers.
 
 ## 7. Use Status Codes in Error Handling
 
-In API development, employing appropriate HTTP status codes in your responses is crucial for clear and effective communication with API consumers. Status codes provide essential information about the outcome of a request, indicating whether it was successful, encountered an error, or requires redirection. Below are different HTTP status code ranges and their respective meanings:
+HTTP status codes communicate the outcome of a request — whether it succeeded, failed, or requires redirection. Below are the status code ranges and their meanings:
 
-- **1XX (Informational Responses):** These are informational responses indicating that the server has received the request and is continuing to process it. An example is 102, which signifies that the resource is being processed.
+- **1XX (Informational):** The server has received the request and is still processing it (e.g., 102 Processing).
 
-- **3XX (Redirects):** These status codes indicate that further action needs to be taken to complete the request. For instance, 301 indicates that the requested resource has permanently moved to a new location.
+- **3XX (Redirects):** Further action is required to complete the request (e.g., 301 Moved Permanently).
 
-- **4XX (Client-side Errors):** Status codes in this range indicate that there was an issue with the client's request. For example, 400 represents a bad request, while 404 indicates that the requested resource was not found.
+- **4XX (Client Errors):** The request itself was invalid (e.g., 400 Bad Request, 404 Not Found).
 
-- **5XX (Server-side Errors):** Status codes in this range indicate that an error occurred on the server while processing the request. For instance, 500 signifies an internal server error.
+- **5XX (Server Errors):** The server failed to process the request (e.g., 500 Internal Server Error).
 
 **Example:**
 
-If a client makes an API request to retrieve a user profile and encounters an error due to an invalid user ID, the server may respond with a 404 status code and a corresponding error message like this:
+For example, a request for a nonexistent user ID might return a 404 with a message like this:
 
 ```json
 {
@@ -207,40 +223,40 @@ If a client makes an API request to retrieve a user profile and encounters an er
 }
 ```
 
-Using proper status codes enhances the clarity of API responses and enables API consumers to understand the outcome of their requests accurately. It's essential to use these status codes consistently to ensure effective error handling and communication with API users.
+Consistent status codes clarify API responses and ensure effective error handling and communication.
 
-Reources :
+Resources:
 
 - [API Best Practices: Response Handling](http://blogs.mulesoft.com/api-best-practices-response-handling/)
 - [Error handling considerations and best practices](http://soabits.blogspot.ru/2013/05/error-handling-considerations-and-best.html)
 
-## 8. Apply Rate Limit for API Calls
+## 8. Apply Rate Limiting to API Calls
 
-Rate limiting is a vital mechanism to control the number of API requests a client can make within a specified time frame. By implementing rate limits, you can ensure fair usage of your API's resources and protect it from abuse or overloading. Here are key considerations for applying rate limits:
+Rate limiting controls how many requests a client can make within a given time frame, ensuring fair usage and protecting your API from abuse or overload. Key considerations:
 
 1. **Set Rate Limit Information in API Response:**
 
-   When a client makes a request, include rate limit information in the API response. This typically includes details like the total number of requests allowed within a specific time window, the remaining requests available, and the time period until the limits reset.
+   Include rate limit information in API responses: the total requests allowed per window, the remaining requests, and when the limit resets.
 
 2. **Use "429 Too Many Requests" Status Code:**
 
-   To indicate that a client has exceeded its rate limit, return the "429 Too Many Requests" HTTP status code. This informs the client that further requests are temporarily blocked.
+   Return "429 Too Many Requests" when a client exceeds its rate limit.
 
 3. **Utilize "Retry-After" Header:**
 
-   Include the "Retry-After" header in the response to specify the time duration the client should wait before making additional requests. This helps the client to adjust its behavior and avoid overloading the API.
+   Include a "Retry-After" header telling the client how long to wait before retrying.
 
 4. **Consider "Retry-Remaining" Header:**
 
-   Optionally, use the "Retry-Remaining" header to indicate the count of remaining calls available to the client within the given time frame. This can help the client keep track of its usage and plan accordingly.
+   Optionally, include a "Retry-Remaining" header so clients can track their remaining calls.
 
-Rate limiting is a crucial aspect of API management, ensuring a balanced and fair distribution of resources among all users. It helps maintain API stability, reliability, and performance, providing a positive experience for all consumers.
+Rate limiting ensures fair resource distribution and maintains API stability, reliability, and performance.
 
-## 9. Do not use verbs in the URI
+## 9. Avoid Verbs in URIs
 
-Instead of using verbs in the endpoint paths, it is advisable to structure the paths based on the resources they represent.
+Avoid verbs in endpoint paths and instead structure paths around the resources they represent.
 
-Here are a few examples to show how the endpoints should look like,
+Examples:
 
 | Do's            | Don'ts               |
 | --------------- | -------------------- |
@@ -251,11 +267,11 @@ Here are a few examples to show how the endpoints should look like,
 | PATCH /users/1  | PATCH /modifyUser/1  |
 | DELETE /users/1 | DELETE /deleteUser/1 |
 
-## 10. Use Plural nouns
+## 10. Use Plural Nouns
 
-Use plural when possible unless they are singleton resources.
+Use plural nouns unless the resource is a singleton.
 
-Here are a few examples to show how the endpoints should look like,
+Examples:
 
 | Do's                        | Don'ts                              |
 | --------------------------- | ----------------------------------- |
@@ -267,11 +283,11 @@ Here are a few examples to show how the endpoints should look like,
 | DELETE /users/123           | DELETE /user/123                    |
 | GET /users?name=John&age=30 | GET /users?userName=John&userAge=30 |
 
-## 11. Use Lowercase letters
+## 11. Use Lowercase Letters
 
 URIs should start with a letter and use only lowercase letters.
 
-Here are a few examples to show how the endpoints should look like,
+Examples:
 
 | Do's       | Don'ts           |
 | ---------- | ---------------- |
@@ -279,11 +295,11 @@ Here are a few examples to show how the endpoints should look like,
 | GET /users | GET /GetAllUsers |
 | GET /users | GET /USERS       |
 
-## 12. Use hyphens (-) to separate words or segments in the URI path
+## 12. Use Hyphens to Separate Words in URI Paths
 
-Avoid using underscores, camel case, Pascal case, spaces, special characters in URIs. Instead, use hyphens (-) to separate words or segments in the URI path. This practice improves readability and ensures compatibility across different systems and platforms.
+Avoid underscores, camelCase, PascalCase, spaces, and special characters in URIs. Instead, use hyphens (-) to separate words in the URI path. This improves readability and ensures compatibility across systems and platforms.
 
-Here are a few examples to show how the endpoints should look like,
+Examples:
 
 | Do's            | Don'ts            |
 | --------------- | ----------------- |
@@ -300,11 +316,11 @@ Here are a few examples to show how the endpoints should look like,
 | /user-roles/123 | /user roles/123   |
 | /user-roles/123 | /user%20roles/123 |
 
-## 13. Use Underscore (\_) separate query strings in the URI path
+## 13. Use Underscores in Query String Parameters
 
-literals or expressions in the query strings are separated using underscores (\_) to improve readability and maintain consistency in URI formatting
+Separate query string parameters with underscores (\_) to improve readability and maintain consistent URI formatting.
 
-Here are a few examples to show how the endpoints should look like,
+Examples:
 
 | Do's                                  | Don'ts                              |
 | ------------------------------------- | ----------------------------------- |
@@ -313,28 +329,28 @@ Here are a few examples to show how the endpoints should look like,
 | /api/users?page_size=10&page_number=2 | /api/users?pageSize=10&pageNumber=2 |
 | /api/users?search_query=john          | /api/users?searchQuery=john         |
 
-## 14. Use Nesting on Endpoints to Show Relationships
+## 14. Use Nesting to Show Resource Relationships
 
-Sometimes, API endpoints can have relationships with each other, and in those cases, it can be helpful to nest them for better clarity and understanding
+When API endpoints have relationships with each other, nesting them can improve clarity and understanding.
 
-Here are a few examples to show how the endpoints should look like,
+Examples:
 
 | Do's                     | Don'ts                           |
 | ------------------------ | -------------------------------- |
-| /api/users/1/roles       | /api/users/1/roles               |
-| /api/users/1/roles/3     | /api/users/1/roles/3             |
-| /api/users/1/friends     | /api/users/1/friends             |
-| /api/users/1/friends/2   | /api/users/1/friends/2           |
-| /api/users/1/posts       | /api/users/1/posts               |
-| /api/users/1/posts/5     | /api/users/1/posts/5             |
-| /api/posts/5/comments    | /api/users/1/posts/5/comments    |
-| /api/posts/5/comments/10 | /api/users/1/posts/5/comments/10 |
+| /api/users/1/roles       | /api/roles?userId=1              |
+| /api/users/1/roles/3     | /api/roles/3                     |
+| /api/users/1/friends     | /api/friends?userId=1            |
+| /api/users/1/friends/2   | /api/friends/2                   |
+| /api/users/1/posts       | /api/posts?userId=1              |
+| /api/users/1/posts/5     | /api/posts/5                     |
+| /api/posts/5/comments    | /api/comments?postId=5           |
+| /api/posts/5/comments/10 | /api/comments/10                 |
 
-## 15. Limit the nesting of resources to a reasonable level by using top-level resources
+## 15. Limit Nesting with Top-Level Resources
 
-This avoids overly complex and deeply nested URIs and makes the API more intuitive and easy to use. A flatter and more modular structure is promoted, leading to better scalability and maintainability of the API.
+Keeping URI nesting shallow avoids overly complex and deeply nested paths and makes the API more intuitive. A flatter, more modular structure improves scalability and maintainability.
 
-Here are a few examples to show how the endpoints should look like,
+Examples:
 
 | Do's                     | Don'ts                                   |
 | ------------------------ | ---------------------------------------- |
@@ -344,11 +360,11 @@ Here are a few examples to show how the endpoints should look like,
 | /api/posts/5/author      | /api/users/1/posts/5/author              |
 | /api/users/1/followers   | /api/users/1/posts/5/author/followers    |
 
-## 16. Use forward slashes (/) for hierarchy but not trailing forward slash (/)
+## 16. Use Forward Slashes for Hierarchy, No Trailing Slash
 
-It is recommended to use forward slashes for indicating hierarchy, but not to use a trailing forward slash.
+Use forward slashes to indicate hierarchy, but omit the trailing forward slash.
 
-Here are a few examples to show how the endpoints should look like,
+Examples:
 
 | Do's                        | Don'ts                               |
 | --------------------------- | ------------------------------------ |
@@ -360,13 +376,13 @@ Here are a few examples to show how the endpoints should look like,
 | DELETE /users/123           | DELETE /user/123/                    |
 | GET /users?name=John&age=30 | GET /users?userName=John&userAge=30/ |
 
-## 17. Use Query Component for Filtering, Sorting, Paging, and Field Selection
+## 17. Use Query Parameters for Filtering, Sorting, Pagination, and Field Selection
 
-As your database grows, managing data retrieval can become challenging, especially when you need to retrieve specific data without exposing the entire database. REST APIs provide four types of filtering options: filtering, sorting, paging, and field selection, enabling efficient data retrieval without compromising security or overwhelming the client's bandwidth.
+As your dataset grows, retrieving exactly the data you need without exposing the entire database becomes increasingly important. REST APIs support four query-based options to enable efficient, secure data retrieval: filtering, sorting, pagination, and field selection.
 
 ### Filtering
 
-Filtering allows you to retrieve results that meet specific conditions using search parameters such as country, creation date, and more.
+Retrieve only results that meet specific conditions, using parameters such as `country` or `creation_date`.
 
 Example queries:
 
@@ -376,16 +392,16 @@ Example queries:
 
 ### Sorting
 
-Sorting lets you order results in ascending or descending order based on a specified field.
+Order results in ascending or descending order by a specified field.
 
 Example queries:
 
 - `GET /users?sort=birthdate:asc`
 - `GET /users?sort=creation_date:desc`
 
-### Paging
+### Pagination
 
-Paging helps narrow down results by specifying the number of items to display and the offset to skip.
+Pagination narrows down results by specifying the number of items to display and the offset to skip.
 
 Example queries:
 
@@ -394,7 +410,7 @@ Example queries:
 
 ### Field Selection
 
-Field selection allows you to request specific fields of an object in the API response, especially when querying objects with many fields.
+Request only the fields you need in the response — especially useful for objects with many fields.
 
 Example queries:
 
@@ -403,15 +419,15 @@ Example queries:
 - For a list of users:
   `GET /users?fields=name,email`
 
-By utilizing these query options, your API becomes more flexible and user-friendly, enabling clients to retrieve precisely the data they need with minimal overhead. It's essential to document these query parameters to guide API consumers effectively.
+These query options make your API more flexible and user-friendly. Document the parameters so consumers can use them effectively.
 
 ## 18. Version Your APIs
 
-Versioning your APIs is crucial for providing a smooth upgrade path and maintaining backward compatibility when making changes. It ensures that clients can adapt to new features and improvements without disrupting existing functionality. Here are some best practices for versioning your APIs:
+Versioning provides a smooth upgrade path and maintains backward compatibility, letting clients adopt new features without breaking existing integrations. Best practices:
 
 1. **Use URL Versioning:**
 
-   Incorporate the API version directly into the URL to distinguish different versions. For example:
+   Include the version directly in the URL to distinguish releases. For example:
 
    - `http://api.example.com/v1/store/employees/{emp-id}`
    - `http://api.example.com/v1/store/items/{item-id}`
@@ -419,11 +435,11 @@ Versioning your APIs is crucial for providing a smooth upgrade path and maintain
 
 2. **API Documentation:**
 
-   Clearly document each API version, specifying the changes, additions, and deprecations introduced in each version. This helps users understand the differences and plan for migration.
+   Document each version's changes, additions, and deprecations so users can plan their migration.
 
 3. **Semantic Versioning:**
 
-   Consider adopting Semantic Versioning (SemVer) to indicate the extent of changes in each API version. SemVer follows the format of `MAJOR.MINOR.PATCH`, where:
+   Use Semantic Versioning (SemVer) — `MAJOR.MINOR.PATCH` — to indicate the extent of each change:
 
    - `MAJOR` version is incremented for incompatible changes.
    - `MINOR` version is incremented for backward-compatible additions.
@@ -431,43 +447,29 @@ Versioning your APIs is crucial for providing a smooth upgrade path and maintain
 
 4. **Deprecation Policy:**
 
-   Clearly communicate the deprecation policy for older API versions, informing users when a version will no longer be supported. This allows clients to plan their migration to the latest version.
+   Clearly state when older versions will no longer be supported so clients can plan their migration.
 
-By following these versioning practices, you can provide a stable and reliable API experience for your users while continuously improving and evolving your API without disrupting their existing integrations.
-
-<!-- ## 16. References
-
-Many articles were followed and among them, certain articles proved to be highly valuable. These articles provided great insight and served as inspiration for writing this article from my own perspective.
-
-- [medium](https://medium.com/@nadinCodeHat/rest-api-naming-conventions-and-best-practices-1c4e781eb6a5)
-- [freecodecamp](https://www.freecodecamp.org/news/rest-api-best-practices-rest-endpoint-design-examples/)
-- [josipmisko](https://josipmisko.com/posts/rest-api-best-practices)
-- [hevodata](https://hevodata.com/learn/rest-api-best-practices/)
-- [partech](https://www.partech.nl/nl/publicaties/2020/07/9-trending-best-practices-for-rest-api-development#)
-
-**[⬆ Back to Top](#table-of-contents)**
--->
+Following these practices keeps your API stable and reliable while you continue to evolve it.
 
 ## References
 
-- [stackoverflow](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
+- [Stack Overflow](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
 - [Microsoft REST API Guidelines](https://github.com/Microsoft/api-guidelines/)
-<!-- - [Learn REST: A RESTful Tutorial](http://www.restapitutorial.com/)
-- [White House Web API Standards](https://github.com/WhiteHouse/api-standards) -->
 
 ## API Documentation Examples
 
-- [twitter](https://dev.twitter.com/rest/public)
-- [github](https://docs.github.com/en)
-- [instagram](https://instagram.com/developer/endpoints/)
-- [facebook](https://developers.facebook.com/docs/graph-api/using-graph-api/)
-- [pinterest](https://developers.pinterest.com/docs/api/overview/)
+- [Twitter](https://dev.twitter.com/rest/public)
+- [GitHub](https://docs.github.com/en)
+- [Instagram](https://instagram.com/developer/endpoints/)
+- [Facebook](https://developers.facebook.com/docs/graph-api/using-graph-api/)
+- [Pinterest](https://developers.pinterest.com/docs/api/overview/)
 - [apiDoc](http://apidocjs.com/)
+- [REST API Example](https://dummy.restapiexample.com/)
 
 ## API Documentation and Testing Tools
 
-- [Swagger Framework for APIs](http://swagger.io/)
-- [postman](https://www.postman.com/)
+- [Swagger (OpenAPI)](http://swagger.io/)
+- [Postman](https://www.postman.com/)
 
 ## License
 
