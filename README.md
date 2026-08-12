@@ -43,7 +43,7 @@ REST treats the resources of a web application as objects in a data model. Clien
 
 **Key Characteristics and Principles of REST:**
 
-1. **Statelessness:** Each request from a client to the server must contain all the information needed to understand and process the request. The server does not store any state or session information about the client between requests, making it scalable and easy to manage.
+1. **Statelessness:** Each request from a client to the server must contain all the information needed to understand and process it. The server keeps no client-session state between requests, making it scalable and easy to manage.
 
 2. **Resource-Based:** REST APIs are built around resources, which represent objects or entities in the system. Each resource is identified by a unique URL, and clients interact with these resources using standard HTTP methods.
 
@@ -85,14 +85,14 @@ One of the key principles of REST APIs is the use of standard HTTP methods to co
 
 The following table summarizes the HTTP methods used in REST APIs:
 
-| REST Verb | Action                                               |
-| --------- | ---------------------------------------------------- |
-| GET       | Fetches a record or set of resources from the server |
-| OPTIONS   | Fetches all available REST operations                |
-| POST      | Creates a new set of resources or a resource         |
-| PUT       | Updates or replaces the given record                 |
-| PATCH     | Modifies the given record                            |
-| DELETE    | Deletes the given resource                           |
+| REST Verb | Action                                                                                       |
+| --------- | -------------------------------------------------------------------------------------------- |
+| GET       | Fetches a record or set of resources from the server                                         |
+| OPTIONS   | Describes the communication options available for the target resource (e.g., CORS preflight) |
+| POST      | Creates a new resource or a collection of resources                                          |
+| PUT       | Replaces the target resource with the request payload                                        |
+| PATCH     | Modifies the given record                                                                    |
+| DELETE    | Deletes the given resource                                                                   |
 
 Resources:
 
@@ -108,7 +108,7 @@ Choose what works best for your use case. Many organizations standardize on JSON
 - Set the "Content-Type" header to "application/json" in all API requests and responses involving JSON data.
 - Utilize JSON even for error messages, avoiding plain text or HTML responses.
 
-**Example API Endpoint: `/user` Method: `POST`**
+**Example API Endpoint: `/users` Method: `POST`**
 
 **Description:** This API allows clients to create a new user by sending a JSON payload in the request. The API will then return a JSON response containing the details of the newly created user.
 
@@ -141,17 +141,14 @@ Using JSON for both requests and responses ensures a standardized data format an
 When working with JSON data, it's important to establish a consistent field naming convention for better readability and maintainability. While JSON doesn't enforce any specific naming convention, following a standard practice can greatly improve code consistency. Here are some common conventions along with their descriptions and examples:
 
 1. **snake_case:**
-
    - Lowercase letters with underscores separating words.
    - Example: "user_name"
 
 2. **camelCase:**
-
    - Lowercase first letter of the first word, capitalizing the first letter of subsequent words.
    - Example: "userName"
 
 3. **PascalCase:**
-
    - Capitalizing the first letter of each word.
    - Example: "UserName"
 
@@ -246,9 +243,9 @@ Rate limiting controls how many requests a client can make within a given time f
 
    Include a "Retry-After" header telling the client how long to wait before retrying.
 
-4. **Consider "Retry-Remaining" Header:**
+4. **Expose Rate Limit Headers:**
 
-   Optionally, include a "Retry-Remaining" header so clients can track their remaining calls.
+   Optionally, expose the remaining calls in standard rate-limit headers such as `RateLimit-Remaining` so clients can track their usage.
 
 Rate limiting ensures fair resource distribution and maintains API stability, reliability, and performance.
 
@@ -273,19 +270,18 @@ Use plural nouns unless the resource is a singleton.
 
 Examples:
 
-| Do's                        | Don'ts                              |
-| --------------------------- | ----------------------------------- |
-| POST /users                 | POST /user                          |
-| GET /users                  | GET /user                           |
-| GET /users/123              | GET /user/123                       |
-| PUT /users/123              | PUT /user/123                       |
-| PATCH /users/123            | PATCH /user/123                     |
-| DELETE /users/123           | DELETE /user/123                    |
-| GET /users?name=John&age=30 | GET /users?userName=John&userAge=30 |
+| Do's                        | Don'ts            |
+| --------------------------- | ----------------- |
+| POST /users                 | POST /user        |
+| GET /users                  | GET /user         |
+| GET /users/123              | GET /user/123     |
+| PUT /users/123              | PUT /user/123     |
+| PATCH /users/123            | PATCH /user/123   |
+| DELETE /users/123           | DELETE /user/123  |
 
 ## 11. Use Lowercase Letters
 
-URIs should start with a letter and use only lowercase letters.
+Use only lowercase letters in URIs.
 
 Examples:
 
@@ -335,16 +331,16 @@ When API endpoints have relationships with each other, nesting them can improve 
 
 Examples:
 
-| Do's                     | Don'ts                           |
-| ------------------------ | -------------------------------- |
-| /api/users/1/roles       | /api/roles?userId=1              |
-| /api/users/1/roles/3     | /api/roles/3                     |
-| /api/users/1/friends     | /api/friends?userId=1            |
-| /api/users/1/friends/2   | /api/friends/2                   |
-| /api/users/1/posts       | /api/posts?userId=1              |
-| /api/users/1/posts/5     | /api/posts/5                     |
-| /api/posts/5/comments    | /api/comments?postId=5           |
-| /api/posts/5/comments/10 | /api/comments/10                 |
+| Do's                     | Don'ts                 |
+| ------------------------ | ---------------------- |
+| /api/users/1/roles       | /api/roles?userId=1    |
+| /api/users/1/roles/3     | /api/roles/3           |
+| /api/users/1/friends     | /api/friends?userId=1  |
+| /api/users/1/friends/2   | /api/friends/2         |
+| /api/users/1/posts       | /api/posts?userId=1    |
+| /api/users/1/posts/5     | /api/posts/5           |
+| /api/posts/5/comments    | /api/comments?postId=5 |
+| /api/posts/5/comments/10 | /api/comments/10       |
 
 ## 15. Limit Nesting with Top-Level Resources
 
@@ -366,15 +362,14 @@ Use forward slashes to indicate hierarchy, but omit the trailing forward slash.
 
 Examples:
 
-| Do's                        | Don'ts                               |
-| --------------------------- | ------------------------------------ |
-| POST /users                 | POST /user/                          |
-| GET /users                  | GET /user/                           |
-| GET /users/123              | GET /user/123/                       |
-| PUT /users/123              | PUT /user/123/                       |
-| PATCH /users/123            | PATCH /user/123/                     |
-| DELETE /users/123           | DELETE /user/123/                    |
-| GET /users?name=John&age=30 | GET /users?userName=John&userAge=30/ |
+| Do's                        | Don'ts                 |
+| --------------------------- | ---------------------- |
+| POST /users                 | POST /users/           |
+| GET /users                  | GET /users/            |
+| GET /users/123              | GET /users/123/        |
+| PUT /users/123              | PUT /users/123/        |
+| PATCH /users/123            | PATCH /users/123/      |
+| DELETE /users/123           | DELETE /users/123/     |
 
 ## 17. Use Query Parameters for Filtering, Sorting, Pagination, and Field Selection
 
@@ -396,8 +391,8 @@ Order results in ascending or descending order by a specified field.
 
 Example queries:
 
-- `GET /users?sort=birthdate:asc`
-- `GET /users?sort=creation_date:desc`
+- `GET /users?sort_by=birthdate_asc`
+- `GET /users?sort_by=creation_date_desc`
 
 ### Pagination
 
@@ -428,7 +423,6 @@ Versioning provides a smooth upgrade path and maintains backward compatibility, 
 1. **Use URL Versioning:**
 
    Include the version directly in the URL to distinguish releases. For example:
-
    - `http://api.example.com/v1/store/employees/{emp-id}`
    - `http://api.example.com/v1/store/items/{item-id}`
    - `http://api.example.com/v2/store/employees/{emp-id}/address`
@@ -440,7 +434,6 @@ Versioning provides a smooth upgrade path and maintains backward compatibility, 
 3. **Semantic Versioning:**
 
    Use Semantic Versioning (SemVer) — `MAJOR.MINOR.PATCH` — to indicate the extent of each change:
-
    - `MAJOR` version is incremented for incompatible changes.
    - `MINOR` version is incremented for backward-compatible additions.
    - `PATCH` version is incremented for backward-compatible bug fixes.
@@ -458,9 +451,9 @@ Following these practices keeps your API stable and reliable while you continue 
 
 ## API Documentation Examples
 
-- [Twitter](https://dev.twitter.com/rest/public)
+- [Twitter](https://developer.x.com/en/docs/x-api)
 - [GitHub](https://docs.github.com/en)
-- [Instagram](https://instagram.com/developer/endpoints/)
+- [Instagram](https://developers.facebook.com/docs/instagram-platform)
 - [Facebook](https://developers.facebook.com/docs/graph-api/using-graph-api/)
 - [Pinterest](https://developers.pinterest.com/docs/api/overview/)
 - [apiDoc](http://apidocjs.com/)
@@ -470,7 +463,3 @@ Following these practices keeps your API stable and reliable while you continue 
 
 - [Swagger (OpenAPI)](http://swagger.io/)
 - [Postman](https://www.postman.com/)
-
-## License
-
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
