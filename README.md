@@ -25,11 +25,6 @@
 - [17. Use Query Parameters for Filtering, Sorting, Pagination, and Field Selection](#17-use-query-parameters-for-filtering-sorting-pagination-and-field-selection)
 - [18. Version Your APIs](#18-version-your-apis)
 
-## Support the Project :star:
-
-> If you find this guide helpful, please consider giving it a **star** on GitHub. Your support is greatly appreciated!
-
-> Connect with the author on [LinkedIn](https://www.linkedin.com/in/saif-aust-cse/).
 
 ## 1. What is REST API?
 
@@ -270,14 +265,14 @@ Use plural nouns unless the resource is a singleton.
 
 Examples:
 
-| Do's                        | Don'ts            |
-| --------------------------- | ----------------- |
-| POST /users                 | POST /user        |
-| GET /users                  | GET /user         |
-| GET /users/123              | GET /user/123     |
-| PUT /users/123              | PUT /user/123     |
-| PATCH /users/123            | PATCH /user/123   |
-| DELETE /users/123           | DELETE /user/123  |
+| Do's              | Don'ts           |
+| ----------------- | ---------------- |
+| POST /users       | POST /user       |
+| GET /users        | GET /user        |
+| GET /users/123    | GET /user/123    |
+| PUT /users/123    | PUT /user/123    |
+| PATCH /users/123  | PATCH /user/123  |
+| DELETE /users/123 | DELETE /user/123 |
 
 ## 11. Use Lowercase Letters
 
@@ -362,14 +357,14 @@ Use forward slashes to indicate hierarchy, but omit the trailing forward slash.
 
 Examples:
 
-| Do's                        | Don'ts                 |
-| --------------------------- | ---------------------- |
-| POST /users                 | POST /users/           |
-| GET /users                  | GET /users/            |
-| GET /users/123              | GET /users/123/        |
-| PUT /users/123              | PUT /users/123/        |
-| PATCH /users/123            | PATCH /users/123/      |
-| DELETE /users/123           | DELETE /users/123/     |
+| Do's              | Don'ts             |
+| ----------------- | ------------------ |
+| POST /users       | POST /users/       |
+| GET /users        | GET /users/        |
+| GET /users/123    | GET /users/123/    |
+| PUT /users/123    | PUT /users/123/    |
+| PATCH /users/123  | PATCH /users/123/  |
+| DELETE /users/123 | DELETE /users/123/ |
 
 ## 17. Use Query Parameters for Filtering, Sorting, Pagination, and Field Selection
 
@@ -463,3 +458,13 @@ Following these practices keeps your API stable and reliable while you continue 
 
 - [Swagger (OpenAPI)](http://swagger.io/)
 - [Postman](https://www.postman.com/)
+
+## Author
+
+**Md. Saiful Islam**
+_Microsoft Certified Solutions Developer (MCSD) – Programming in C#_
+
+**GitHub:** [@saifaustcse](https://github.com/saifaustcse)
+**LinkedIn:** [Md. Saiful Islam](https://www.linkedin.com/in/saif-aust-cse/)
+
+If you find this guide useful, please give :star:. Your support is appreciated!
