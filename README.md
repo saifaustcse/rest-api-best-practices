@@ -1,30 +1,33 @@
 # REST API Best Practices & Naming Conventions
 
-> A practical, developer-focused guide to designing robust, secure, and maintainable REST APIs — covering resource naming, URI structure, HTTP methods, error handling, rate limiting, versioning, and more.
+> A practical, developer-focused guide to designing robust, secure, and maintainable **REST APIs** — covering resource naming, URI structure, HTTP methods, error handling, rate limiting, versioning, and more.
 
-> Consistent API design improves the usability, scalability, and maintainability of your services, making them easier to adopt and integrate with. Always tailor these conventions to your target audience and the overarching goals of your API.
+Consistent API design improves the usability, scalability, and maintainability of your services, making them easier to adopt and integrate with.
+
+> **Note:** These conventions are guidelines rather than strict rules. Always tailor them to your target audience and the overarching goals of your API.
 
 ## Table of Contents
 
-- [1. What is REST API?](#1-what-is-rest-api)
-- [2. Breakdown of the Parts of a URL](#2-breakdown-of-the-parts-of-a-url)
-- [3. Use HTTP Methods to Communicate Intent](#3-use-http-methods-to-communicate-intent)
-- [4. Use an Appropriate Data Structure](#4-use-an-appropriate-data-structure)
-- [5. Choose a Consistent JSON Field Naming Convention](#5-choose-a-consistent-json-field-naming-convention)
-- [6. Use Consistent Error Messages](#6-use-consistent-error-messages)
-- [7. Use Status Codes in Error Handling](#7-use-status-codes-in-error-handling)
-- [8. Apply Rate Limiting to API Calls](#8-apply-rate-limiting-to-api-calls)
-- [9. Avoid Verbs in URIs](#9-avoid-verbs-in-uris)
-- [10. Use Plural Nouns](#10-use-plural-nouns)
-- [11. Use Lowercase Letters](#11-use-lowercase-letters)
-- [12. Use Hyphens to Separate Words in URI Paths](#12-use-hyphens-to-separate-words-in-uri-paths)
-- [13. Use Underscores in Query String Parameters](#13-use-underscores-in-query-string-parameters)
-- [14. Use Nesting to Show Resource Relationships](#14-use-nesting-to-show-resource-relationships)
-- [15. Limit Nesting with Top-Level Resources](#15-limit-nesting-with-top-level-resources)
-- [16. Use Forward Slashes for Hierarchy, No Trailing Slash](#16-use-forward-slashes-for-hierarchy-no-trailing-slash)
-- [17. Use Query Parameters for Filtering, Sorting, Pagination, and Field Selection](#17-use-query-parameters-for-filtering-sorting-pagination-and-field-selection)
-- [18. Version Your APIs](#18-version-your-apis)
-
+| No. | Topic                                                                                                                                                         |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | [What is REST API?](#1-what-is-rest-api)                                                                                                                      |
+| 2   | [Breakdown of the Parts of a URL](#2-breakdown-of-the-parts-of-a-url)                                                                                         |
+| 3   | [Use HTTP Methods to Communicate Intent](#3-use-http-methods-to-communicate-intent)                                                                           |
+| 4   | [Use an Appropriate Data Structure](#4-use-an-appropriate-data-structure)                                                                                     |
+| 5   | [Choose a Consistent JSON Field Naming Convention](#5-choose-a-consistent-json-field-naming-convention)                                                       |
+| 6   | [Use Consistent Error Messages](#6-use-consistent-error-messages)                                                                                             |
+| 7   | [Use Status Codes in Error Handling](#7-use-status-codes-in-error-handling)                                                                                   |
+| 8   | [Apply Rate Limiting to API Calls](#8-apply-rate-limiting-to-api-calls)                                                                                       |
+| 9   | [Avoid Verbs in URIs](#9-avoid-verbs-in-uris)                                                                                                                 |
+| 10  | [Use Plural Nouns](#10-use-plural-nouns)                                                                                                                      |
+| 11  | [Use Lowercase Letters](#11-use-lowercase-letters)                                                                                                            |
+| 12  | [Use Hyphens to Separate Words in URI Paths](#12-use-hyphens-to-separate-words-in-uri-paths)                                                                  |
+| 13  | [Use Underscores in Query String Parameters](#13-use-underscores-in-query-string-parameters)                                                                  |
+| 14  | [Use Nesting to Show Resource Relationships](#14-use-nesting-to-show-resource-relationships)                                                                  |
+| 15  | [Limit Nesting with Top-Level Resources](#15-limit-nesting-with-top-level-resources)                                                                          |
+| 16  | [Use Forward Slashes for Hierarchy, No Trailing Slash](#16-use-forward-slashes-for-hierarchy-no-trailing-slash)                                               |
+| 17  | [Use Query Parameters for Filtering, Sorting, Pagination, and Field Selection](#17-use-query-parameters-for-filtering-sorting-pagination-and-field-selection) |
+| 18  | [Version Your APIs](#18-version-your-apis)                                                                                                                    |
 
 ## 1. What is REST API?
 
@@ -32,9 +35,9 @@ REST (Representational State Transfer) is an architectural style for designing w
 
 REST treats the resources of a web application as objects in a data model. Clients perform operations on these resources using standard HTTP methods such as GET, POST, PUT, PATCH, and DELETE. Each resource is uniquely identified by a URL.
 
-<div style="text-align: center;">
-        <img src="https://github.com/saifaustcse/rest-api-best-practices/blob/main/images/rest-api-model.png?raw=true" width="700" height="300">
-</div>
+<p align="center">
+    <img src="images/rest-api-model.png" alt="REST API Model">
+</p>
 
 **Key Characteristics and Principles of REST:**
 
@@ -52,13 +55,15 @@ REST treats the resources of a web application as objects in a data model. Clien
 
 7. **Hypermedia as the Engine of Application State (HATEOAS):** REST APIs can include hyperlinks in responses, allowing clients to discover and navigate available resources and actions dynamically.
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 2. Breakdown of the Parts of a URL
 
 A URL (Uniform Resource Locator) is a reference or address used to locate resources on the internet. It typically consists of several parts, each serving a specific purpose:
 
-```
-   protocol://hostname:port/path?query_string#fragment
-```
+<p align="center">
+    <img src="images/api_url.webp" alt="Parts of a URL">
+</p>
 
 1. **Protocol:** The protocol defines the rules used to access the resource. The most common are "http" (Hypertext Transfer Protocol) and "https" (its secure version).
 
@@ -73,6 +78,8 @@ A URL (Uniform Resource Locator) is a reference or address used to locate resour
 6. **Fragment:** The fragment identifies a section within a resource, such as an anchor in an HTML document. Indicated by "#", it is never sent to the server; the client uses it to navigate the retrieved resource.
 
 Note: A URL may omit some of these parts depending on the resource and use case.
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## 3. Use HTTP Methods to Communicate Intent
 
@@ -92,6 +99,8 @@ The following table summarizes the HTTP methods used in REST APIs:
 Resources:
 
 - [PATCH vs PUT in REST API](https://josipmisko.com/posts/patch-vs-put-rest-api) — Differences between PATCH and PUT
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## 4. Use an Appropriate Data Structure
 
@@ -131,6 +140,8 @@ Choose what works best for your use case. Many organizations standardize on JSON
 
 Using JSON for both requests and responses ensures a standardized data format and efficient data exchange.
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 5. Choose a Consistent JSON Field Naming Convention
 
 When working with JSON data, it's important to establish a consistent field naming convention for better readability and maintainability. While JSON doesn't enforce any specific naming convention, following a standard practice can greatly improve code consistency. Here are some common conventions along with their descriptions and examples:
@@ -152,6 +163,8 @@ When working with JSON data, it's important to establish a consistent field nami
    - Example: "user-name"
 
 **camelCase** and **snake_case** are the most widely used and recommended. Pick one and apply it consistently across all your JSON structures.
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## 6. Use Consistent Error Messages
 
@@ -192,6 +205,8 @@ A well-formed error message should consist of the following components:
 
 Consistently using structured error messages like this significantly improves the error-handling experience for API consumers.
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 7. Use Status Codes in Error Handling
 
 HTTP status codes communicate the outcome of a request — whether it succeeded, failed, or requires redirection. Below are the status code ranges and their meanings:
@@ -222,6 +237,8 @@ Resources:
 - [API Best Practices: Response Handling](http://blogs.mulesoft.com/api-best-practices-response-handling/)
 - [Error handling considerations and best practices](http://soabits.blogspot.ru/2013/05/error-handling-considerations-and-best.html)
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 8. Apply Rate Limiting to API Calls
 
 Rate limiting controls how many requests a client can make within a given time frame, ensuring fair usage and protecting your API from abuse or overload. Key considerations:
@@ -244,6 +261,8 @@ Rate limiting controls how many requests a client can make within a given time f
 
 Rate limiting ensures fair resource distribution and maintains API stability, reliability, and performance.
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 9. Avoid Verbs in URIs
 
 Avoid verbs in endpoint paths and instead structure paths around the resources they represent.
@@ -258,6 +277,8 @@ Examples:
 | PUT /users/1    | PUT /updateUser/1    |
 | PATCH /users/1  | PATCH /modifyUser/1  |
 | DELETE /users/1 | DELETE /deleteUser/1 |
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## 10. Use Plural Nouns
 
@@ -274,6 +295,8 @@ Examples:
 | PATCH /users/123  | PATCH /user/123  |
 | DELETE /users/123 | DELETE /user/123 |
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 11. Use Lowercase Letters
 
 Use only lowercase letters in URIs.
@@ -285,6 +308,8 @@ Examples:
 | GET /users | GET /getAllUsers |
 | GET /users | GET /GetAllUsers |
 | GET /users | GET /USERS       |
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## 12. Use Hyphens to Separate Words in URI Paths
 
@@ -307,6 +332,8 @@ Examples:
 | /user-roles/123 | /user roles/123   |
 | /user-roles/123 | /user%20roles/123 |
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 13. Use Underscores in Query String Parameters
 
 Separate query string parameters with underscores (\_) to improve readability and maintain consistent URI formatting.
@@ -319,6 +346,8 @@ Examples:
 | /api/users?filter_by=active           | /api/users?filterBy=active          |
 | /api/users?page_size=10&page_number=2 | /api/users?pageSize=10&pageNumber=2 |
 | /api/users?search_query=john          | /api/users?searchQuery=john         |
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## 14. Use Nesting to Show Resource Relationships
 
@@ -337,6 +366,8 @@ Examples:
 | /api/posts/5/comments    | /api/comments?postId=5 |
 | /api/posts/5/comments/10 | /api/comments/10       |
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 15. Limit Nesting with Top-Level Resources
 
 Keeping URI nesting shallow avoids overly complex and deeply nested paths and makes the API more intuitive. A flatter, more modular structure improves scalability and maintainability.
@@ -350,6 +381,8 @@ Examples:
 | /api/comments/10/likes   | /api/users/1/posts/5/comments/10/likes   |
 | /api/posts/5/author      | /api/users/1/posts/5/author              |
 | /api/users/1/followers   | /api/users/1/posts/5/author/followers    |
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## 16. Use Forward Slashes for Hierarchy, No Trailing Slash
 
@@ -365,6 +398,8 @@ Examples:
 | PUT /users/123    | PUT /users/123/    |
 | PATCH /users/123  | PATCH /users/123/  |
 | DELETE /users/123 | DELETE /users/123/ |
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## 17. Use Query Parameters for Filtering, Sorting, Pagination, and Field Selection
 
@@ -411,6 +446,8 @@ Example queries:
 
 These query options make your API more flexible and user-friendly. Document the parameters so consumers can use them effectively.
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## 18. Version Your APIs
 
 Versioning provides a smooth upgrade path and maintains backward compatibility, letting clients adopt new features without breaking existing integrations. Best practices:
@@ -439,10 +476,14 @@ Versioning provides a smooth upgrade path and maintains backward compatibility, 
 
 Following these practices keeps your API stable and reliable while you continue to evolve it.
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## References
 
 - [Stack Overflow](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
 - [Microsoft REST API Guidelines](https://github.com/Microsoft/api-guidelines/)
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## API Documentation Examples
 
@@ -454,10 +495,14 @@ Following these practices keeps your API stable and reliable while you continue 
 - [apiDoc](http://apidocjs.com/)
 - [REST API Example](https://dummy.restapiexample.com/)
 
+**[⬆ Back to Top](#table-of-contents)**
+
 ## API Documentation and Testing Tools
 
 - [Swagger (OpenAPI)](http://swagger.io/)
 - [Postman](https://www.postman.com/)
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ## Author
 
