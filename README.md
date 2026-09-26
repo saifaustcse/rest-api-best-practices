@@ -21,7 +21,7 @@ Experience an advanced career journey with us! 🚀
 
 <p align="center">
   <a href=" https://app.zapply.jobs/onboarding?ref=github-cta-saifaustcse ">
-  <img src="get-started-button.png" alt="Visit Zapply" width="700">
+  <img src="images/tarted-button.png" alt="Visit Zapply" width="700">
   </a>
 </p>
 
