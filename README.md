@@ -6,6 +6,27 @@ Consistent API design improves the usability, scalability, and maintainability o
 
 > **Note:** These conventions are guidelines rather than strict rules. Always tailor them to your target audience and the overarching goals of your API.
 
+## **Website & Autofill Extension**
+
+[![Apply to jobs in seconds with Zapply.](apply-fasterbanner.png)](https://app.zapply.jobs/onboarding?ref=github-cta-saifaustcse)
+
+Explore Zapply’s website and check out:
+
+- Our Chrome extension, which autofills job applications in seconds.
+- A dedicated job board featuring the latest openings across various roles.
+- User accounts with multiple profiles for different resume types and roles.
+- Job application tracking with streaks and commitment awards.
+
+Experience an advanced career journey with us! 🚀
+
+<p align="center">
+  <a href=" https://app.zapply.jobs/onboarding?ref=github-cta-saifaustcse ">
+  <img src="get-started-button.png" alt="Visit Zapply" width="700">
+  </a>
+</p>
+
+<p align="right"><sub>Sponsored by Zapply</sub></p>
+
 ## Table of Contents
 
 | No. | Topic                                                                                                                                                         |
