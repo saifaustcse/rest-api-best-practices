@@ -8,7 +8,7 @@ Consistent API design improves the usability, scalability, and maintainability o
 
 ## **Website & Autofill Extension**
 
-[![Apply to jobs in seconds with Zapply.](apply-fasterbanner.png)](https://app.zapply.jobs/onboarding?ref=github-cta-saifaustcse)
+[![Apply to jobs in seconds with Zapply.](images/apply-fasterbanner.png)](https://app.zapply.jobs/onboarding?ref=github-cta-saifaustcse)
 
 Explore Zapply’s website and check out:
 
@@ -21,7 +21,7 @@ Experience an advanced career journey with us! 🚀
 
 <p align="center">
   <a href=" https://app.zapply.jobs/onboarding?ref=github-cta-saifaustcse ">
-  <img src="images/tarted-button.png" alt="Visit Zapply" width="700">
+  <img src="images/get-started-button.png" alt="Visit Zapply" width="700">
   </a>
 </p>
 
