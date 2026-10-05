@@ -83,7 +83,7 @@ REST treats the resources of a web application as objects in a data model. Clien
 A URL (Uniform Resource Locator) is a reference or address used to locate resources on the internet. It typically consists of several parts, each serving a specific purpose:
 
 <p align="center">
-    <img src="images/api_url.webp" alt="Parts of a URL">
+    <img src="images/api_url.png" alt="Parts of a URL">
 </p>
 
 1. **Protocol:** The protocol defines the rules used to access the resource. The most common are "http" (Hypertext Transfer Protocol) and "https" (its secure version).
